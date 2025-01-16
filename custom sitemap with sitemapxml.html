@@ -33,7 +33,7 @@
             color: #333;
         }
 
-        input {
+        input, #keywordInput {
             width: calc(100% - 22px);
             padding: 10px;
             margin-bottom: 20px;
@@ -150,6 +150,7 @@
     <div class="container">
         <h1>Sitemap Link Fetcher</h1>
         <input type="text" id="urlInput" placeholder="Enter website URL">
+        <input type="text" id="keywordInput" placeholder="Enter keyword to search">
         <button onclick="startFetching()">Fetch Sitemap Links</button>
         <div id="info"></div>
         <div id="labelCloud"></div>
@@ -177,18 +178,18 @@
                 for (let i = 0; i < entries.length; i++) {
                     const loc = entries[i].getElementsByTagName('loc')[0].textContent;
                     const title = loc.split('/').pop().replace(/-/g, ' ').replace('.html', '');
-                    const categories = entries[i].getElementsByTagName('changefreq');
-                    const linkLabels = [];
-                    for (let j = 0; j < categories.length; j++) {
-                        const label = categories[j].textContent;
-                        linkLabels.push(label);
+                    const linkLabels = entries[i].getElementsByTagName('changefreq');
+                    const linkLabelsArray = [];
+                    for (let j = 0; j < linkLabels.length; j++) {
+                        const label = linkLabels[j].textContent;
+                        linkLabelsArray.push(label);
                         labels.add(label);
                     }
                     totalPosts++;
 
                     const div = document.createElement('div');
                     div.classList.add('link-container');
-                    div.setAttribute('data-labels', linkLabels.join('|'));
+                    div.setAttribute('data-labels', linkLabelsArray.join('|'));
 
                     const button = document.createElement('button');
                     button.classList.add('title-button');
@@ -199,16 +200,13 @@
                     const linkButtons = document.createElement('div');
                     linkButtons.classList.add('link-buttons');
 
-                    const xmlLink = loc.replace('.html', '.xml');
-                    const htmlLink = loc;
-
                     const xmlAnchor = document.createElement('a');
-                    xmlAnchor.href = xmlLink;
+                    xmlAnchor.href = loc;
                     xmlAnchor.textContent = 'XML';
                     linkButtons.appendChild(xmlAnchor);
 
                     const htmlAnchor = document.createElement('a');
-                    htmlAnchor.href = htmlLink;
+                    htmlAnchor.href = loc.replace('/default/', '/posts/default/');
                     htmlAnchor.textContent = 'HTML';
                     linkButtons.appendChild(htmlAnchor);
 
@@ -225,7 +223,7 @@
                     const labelDiv = document.createElement('div');
                     labelDiv.classList.add('label');
                     labelDiv.textContent = label;
-                    labelDiv.onclick = () => filterLinks(label);
+                    labelDiv.onclick = () => filterLinksByLabel(label);
                     labelCloud.appendChild(labelDiv);
                 });
 
@@ -253,7 +251,7 @@
             fetchSitemap(url);
         }
 
-        function filterLinks(selectedLabel) {
+        function filterLinksByLabel(selectedLabel) {
             const links = document.querySelectorAll('.link-container');
 
             links.forEach(link => {
@@ -265,6 +263,22 @@
                 }
             });
         }
+
+        function filterLinksByKeyword() {
+            const keyword = document.getElementById('keywordInput').value.toLowerCase();
+            const links = document.querySelectorAll('.link-container');
+
+            links.forEach(link => {
+                const title = link.querySelector('.title-button').textContent.toLowerCase();
+                if (title.includes(keyword)) {
+                    link.style.display = 'block';
+                } else {
+                    link.style.display = 'none';
+                }
+            });
+        }
+
+        document.getElementById('keywordInput').addEventListener('input', filterLinksByKeyword);
     </script>
 </body>
 </html>
