@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sitemap Link Fetcher</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f9f9f9;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0;
+            padding: 10px;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 100%;
+            max-width: 800px;
+            margin-top: 20px;
+            overflow: hidden;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            font-size: 28px;
+            color: #333;
+        }
+
+        input {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+
+        button {
+            padding: 10px 20px;
+            border: none;
+            background-color: #007bff;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 5px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #info {
+            margin-top: 10px;
+            font-size: 16px;
+            color: #555;
+        }
+
+        #labelCloud {
+            display: flex;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+            justify-content: center;
+        }
+
+        .label {
+            background-color: #e0e0e0;
+            border-radius: 3px;
+            padding: 5px 10px;
+            margin: 5px;
+            cursor: pointer;
+        }
+
+        .label:hover {
+            background-color: #c0c0c0;
+        }
+
+        #result {
+            text-align: left;
+            border-top: 1px solid #ddd;
+            padding-top: 20px;
+            width: 100%;
+        }
+
+        .link-container {
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        .link-container .title-button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            width: 100%;
+            text-align: left;
+        }
+
+        .link-container .title-button:hover {
+            background-color: #0056b3;
+        }
+
+        .link-container .link-buttons {
+            display: none;
+            flex-wrap: wrap;
+            margin-top: 10px;
+            width: 100%;
+        }
+
+        .link-container .link-buttons a {
+            background-color: #f0f0f0;
+            color: #007bff;
+            text-decoration: none;
+            padding: 10px;
+            margin: 5px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            text-align: center;
+            flex: 1;
+        }
+
+        .link-container .link-buttons a:hover {
+            background-color: #e0e0e0;
+        }
+
+        @media (max-width: 600px) {
+            .link-container .title-button {
+                font-size: 14px;
+                padding: 8px;
+            }
+
+            .link-container .link-buttons a {
+                font-size: 14px;
+                padding: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Sitemap Link Fetcher</h1>
+        <input type="text" id="urlInput" placeholder="Enter website URL">
+        <button onclick="startFetching()">Fetch Sitemap Links</button>
+        <div id="info"></div>
+        <div id="labelCloud"></div>
+        <div id="result"></div>
+    </div>
+    <script>
+        async function fetchSitemap(url) {
+            const resultDiv = document.getElementById('result');
+            const labelCloud = document.getElementById('labelCloud');
+            const infoDiv = document.getElementById('info');
+            resultDiv.innerHTML = 'Fetching links...';
+            labelCloud.innerHTML = '';
+            infoDiv.innerHTML = '';
+            const labels = new Set();
+            let author = '';
+            let authorLink = '';
+            let totalPosts = 0;
+
+            try {
+                const response = await fetch(`https://api.codetabs.com/v1/proxy?quest=${url}`);
+                const text = await response.text();
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(text, 'application/xml');
+                const entries = doc.getElementsByTagName('entry');
+
+                resultDiv.innerHTML = '';
+                for (let i = 0; i < entries.length; i++) {
+                    const linkNodes = entries[i].getElementsByTagName('link');
+                    const title = entries[i].getElementsByTagName('title')[0].textContent;
+                    const labelNodes = entries[i].getElementsByTagName('category');
+                    const linkLabels = [];
+                    const authorNodes = entries[i].getElementsByTagName('author');
+                    if (authorNodes.length > 0 && author === '') {
+                        author = authorNodes[0].getElementsByTagName('name')[0].textContent;
+                        authorLink = authorNodes[0].getElementsByTagName('uri')[0].textContent;
+                    }
+                    for (let j = 0; j < labelNodes.length; j++) {
+                        const label = labelNodes[j].getAttribute('term');
+                        linkLabels.push(label);
+                        labels.add(label);
+                    }
+
+                    totalPosts++;
+
+                    const div = document.createElement('div');
+                    div.classList.add('link-container');
+                    div.setAttribute('data-labels', linkLabels.join('|'));
+
+                    const button = document.createElement('button');
+                    button.classList.add('title-button');
+                    button.textContent = title;
+                    button.onclick = () => toggleLinks(div);
+                    div.appendChild(button);
+
+                    const linkButtons = document.createElement('div');
+                    linkButtons.classList.add('link-buttons');
+
+                    for (let j = 0; j < linkNodes.length; j++) {
+                        const link = linkNodes[j].getAttribute('href');
+                        const rel = linkNodes[j].getAttribute('rel');
+                        if (rel === 'self' || rel === 'alternate') {
+                            const a = document.createElement('a');
+                            a.href = link;
+                            a.textContent = rel === 'self' ? 'XML' : 'HTML';
+                            linkButtons.appendChild(a);
+                        }
+                    }
+
+                    div.appendChild(linkButtons);
+                    resultDiv.appendChild(div);
+                }
+
+                infoDiv.innerHTML = `
+                    <p><strong>Author:</strong> <a href="${authorLink}" target="_blank">${author}</a></p>
+                    <p><strong>Total Posts:</strong> ${totalPosts}</p>
+                `;
+
+                labelCloud.innerHTML = '';
+                labels.forEach(label => {
+                    const labelDiv = document.createElement('div');
+                    labelDiv.classList.add('label');
+                    labelDiv.textContent = label;
+                    labelDiv.onclick = () => filterLinks(label);
+                    labelCloud.appendChild(labelDiv);
+                });
+
+                if (!resultDiv.innerHTML) {
+                    resultDiv.innerHTML = 'No links found.';
+                }
+            } catch (error) {
+                console.error('Error fetching links:', error);
+                resultDiv.innerHTML = 'Failed to fetch links. Please try again.';
+            }
+        }
+
+        function toggleLinks(container) {
+            const linkButtons = container.querySelector('.link-buttons');
+            if (linkButtons.style.display === 'none' || !linkButtons.style.display) {
+                linkButtons.style.display = 'flex';
+            } else {
+                linkButtons.style.display = 'none';
+            }
+        }
+
+        function startFetching() {
+            const userInput = document.getElementById('urlInput').value;
+            const url = `${userInput.replace(/\/$/, '')}/atom.xml`;
+            fetchSitemap(url);
+        }
+
+        function filterLinks(selectedLabel) {
+            const links = document.querySelectorAll('.link-container');
+
+            links.forEach(link => {
+                const labels = link.getAttribute('data-labels').split('|');
+                if (labels.includes(selectedLabel)) {
+                    link.style.display = 'block';
+                } else {
+                    link.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</body>
+</html>
