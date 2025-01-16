@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sitemap and Atom Feed Fetcher</title>
+    <title>Posts List Fetcher</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -64,11 +64,22 @@
             color: #555;
         }
 
+        #labelCloudContainer {
+            overflow: hidden;
+            width: 100%;
+            box-sizing: border-box;
+            margin-bottom: 20px;
+        }
+
         #labelCloud {
             display: flex;
-            flex-wrap: wrap;
-            margin-bottom: 20px;
-            justify-content: center;
+            white-space: nowrap;
+            animation: scroll 15s linear infinite;
+        }
+
+        @keyframes scroll {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
         }
 
         .label {
@@ -77,6 +88,7 @@
             padding: 5px 10px;
             margin: 5px;
             cursor: pointer;
+            white-space: nowrap;
         }
 
         .label:hover {
@@ -122,10 +134,12 @@
 </head>
 <body>
     <div class="container">
-        <h1>Sitemap and Atom Feed Fetcher</h1>
+        <h1>Posts List Fetcher</h1>
         <input type="text" id="keywordInput" placeholder="Enter keyword to search">
         <div id="info"></div>
-        <div id="labelCloud"></div>
+        <div id="labelCloudContainer">
+            <div id="labelCloud"></div>
+        </div>
         <div id="result"></div>
     </div>
     <script>
