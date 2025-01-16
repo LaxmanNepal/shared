@@ -6,7 +6,7 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #fff; /* Set background to white */
+            background-color: #f4f4f4; /* Light gray background for contrast */
             margin: 0;
             padding: 20px;
         }
@@ -14,13 +14,23 @@
             max-width: 800px;
             margin: auto;
             padding: 20px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Enhanced shadow for depth */
             border-radius: 8px;
-            background-color: #fff; /* Ensure container background is white */
         }
         h1 {
             text-align: center;
             color: #333;
+            margin-bottom: 20px;
+        }
+        #search-box {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1); /* Inner shadow for input field */
         }
         ul#label_with_thumbs {
             text-align: left;
@@ -36,15 +46,18 @@
             margin: 1%;
             list-style: none;
             padding: 10px;
+            box-sizing: border-box;
         }
         #label_with_thumbs a {
             text-decoration: none;
             color: white;
             background-color: #007BFF;
-            padding: 10px 15px;
+            padding: 15px 20px;
             border-radius: 5px;
             display: block;
             text-align: center;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1); /* Shadow for buttons */
+            transition: background-color 0.3s ease; /* Smooth transition */
         }
         #label_with_thumbs a:hover {
             background-color: #0056b3;
@@ -66,12 +79,14 @@
 <body>
     <div class="container">
         <h1>Posts with Label "PDF"</h1>
+        <input type="text" id="search-box" placeholder="Search posts..." onkeyup="filterPosts()">
         <div id="sitemap"></div>
     </div>
 
     <script type='text/javascript'>
         function labelthumbs(json) {
-            document.write('<ul id="label_with_thumbs">');
+            var ul = document.createElement('ul');
+            ul.id = 'label_with_thumbs';
             for (var i = 0; i < numposts; i++) {
                 var entry = json.feed.entry[i];
                 var posttitle = entry.title.$t;
@@ -83,15 +98,33 @@
                         break;
                     }
                 }
-                document.write('<li>');
-                document.write('<a href="' + posturl + '" target="_blank">' + posttitle + '</a>');
-                document.write('</li>');
+                var li = document.createElement('li');
+                li.className = 'clearfix';
+                li.innerHTML = '<a href="' + posturl + '" target="_blank">' + posttitle + '</a>';
+                ul.appendChild(li);
             }
-            document.write('</ul>');
+            document.getElementById('sitemap').appendChild(ul);
+        }
+
+        function filterPosts() {
+            var input = document.getElementById('search-box');
+            var filter = input.value.toLowerCase();
+            var ul = document.getElementById('label_with_thumbs');
+            var li = ul.getElementsByTagName('li');
+
+            for (var i = 0; i < li.length; i++) {
+                var a = li[i].getElementsByTagName('a')[0];
+                var txtValue = a.textContent || a.innerText;
+                if (txtValue.toLowerCase().indexOf(filter) > -1) {
+                    li[i].style.display = "";
+                } else {
+                    li[i].style.display = "none";
+                }
+            }
         }
     </script>
     <script type='text/javascript'>
-        var numposts = 5;
+        var numposts = 10; // Increase the number of posts to display
     </script>
     <script type="text/javascript" src="https://toolkit.laxmannepal.com.np/feeds/posts/default/-/PDF?published&alt=json-in-script&callback=labelthumbs"></script>
 </body>
