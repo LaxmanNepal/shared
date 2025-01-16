@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Posts with Label "PDF"</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #fff; /* Set background to white */
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            background-color: #fff; /* Ensure container background is white */
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        ul#label_with_thumbs {
+            text-align: left;
+            font: normal 18px Port Lligat Slab;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+        }
+        ul#label_with_thumbs li {
+            width: 48%;
+            margin: 1%;
+            list-style: none;
+            padding: 10px;
+        }
+        #label_with_thumbs a {
+            text-decoration: none;
+            color: white;
+            background-color: #007BFF;
+            padding: 10px 15px;
+            border-radius: 5px;
+            display: block;
+            text-align: center;
+        }
+        #label_with_thumbs a:hover {
+            background-color: #0056b3;
+        }
+        .error {
+            color: red;
+            text-align: center;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 600px) {
+            ul#label_with_thumbs li {
+                width: 100%;
+                margin: 0 0 10px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Posts with Label "PDF"</h1>
+        <div id="sitemap"></div>
+    </div>
+
+    <script type='text/javascript'>
+        function labelthumbs(json) {
+            document.write('<ul id="label_with_thumbs">');
+            for (var i = 0; i < numposts; i++) {
+                var entry = json.feed.entry[i];
+                var posttitle = entry.title.$t;
+                var posturl;
+                if (i == json.feed.entry.length) break;
+                for (var k = 0; k < entry.link.length; k++) {
+                    if (entry.link[k].rel == 'alternate') {
+                        posturl = entry.link[k].href;
+                        break;
+                    }
+                }
+                document.write('<li>');
+                document.write('<a href="' + posturl + '" target="_blank">' + posttitle + '</a>');
+                document.write('</li>');
+            }
+            document.write('</ul>');
+        }
+    </script>
+    <script type='text/javascript'>
+        var numposts = 5;
+    </script>
+    <script type="text/javascript" src="https://toolkit.laxmannepal.com.np/feeds/posts/default/-/PDF?published&alt=json-in-script&callback=labelthumbs"></script>
+</body>
+</html>
