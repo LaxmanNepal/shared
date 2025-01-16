@@ -104,6 +104,8 @@
             border-radius: 5px;
             width: 100%;
             text-align: left;
+            text-decoration: none;
+            display: block;
         }
 
         .link-container .title-button:hover {
@@ -117,29 +119,8 @@
             width: 100%;
         }
 
-        .link-container .link-buttons a {
-            background-color: #f0f0f0;
-            color: #007bff;
-            text-decoration: none;
-            padding: 10px;
-            margin: 5px;
-            border-radius: 5px;
-            border: 1px solid #ddd;
-            text-align: center;
-            flex: 1;
-        }
-
-        .link-container .link-buttons a:hover {
-            background-color: #e0e0e0;
-        }
-
         @media (max-width: 600px) {
             .link-container .title-button {
-                font-size: 14px;
-                padding: 8px;
-            }
-
-            .link-container .link-buttons a {
                 font-size: 14px;
                 padding: 8px;
             }
@@ -191,26 +172,12 @@
                     div.classList.add('link-container');
                     div.setAttribute('data-labels', linkLabelsArray.join('|'));
 
-                    const button = document.createElement('button');
+                    const button = document.createElement('a');
                     button.classList.add('title-button');
                     button.textContent = title;
-                    button.onclick = () => toggleLinks(div);
+                    button.href = loc;
                     div.appendChild(button);
 
-                    const linkButtons = document.createElement('div');
-                    linkButtons.classList.add('link-buttons');
-
-                    const xmlAnchor = document.createElement('a');
-                    xmlAnchor.href = loc;
-                    xmlAnchor.textContent = 'XML';
-                    linkButtons.appendChild(xmlAnchor);
-
-                    const htmlAnchor = document.createElement('a');
-                    htmlAnchor.href = loc.replace('/default/', '/posts/default/');
-                    htmlAnchor.textContent = 'HTML';
-                    linkButtons.appendChild(htmlAnchor);
-
-                    div.appendChild(linkButtons);
                     resultDiv.appendChild(div);
                 }
 
