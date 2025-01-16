@@ -124,6 +124,7 @@
     <div class="container">
         <h1>Sitemap and Atom Feed Fetcher</h1>
         <input type="text" id="urlInput" placeholder="Enter website URL">
+        <input type="text" id="keywordInput" placeholder="Enter keyword to search">
         <button onclick="startFetching()">Fetch Links</button>
         <div id="info"></div>
         <div id="labelCloud"></div>
@@ -251,6 +252,22 @@
                 }
             });
         }
+
+        function filterLinksByKeyword() {
+            const keyword = document.getElementById('keywordInput').value.toLowerCase();
+            const links = document.querySelectorAll('.link-container');
+
+            links.forEach(link => {
+                const title = link.querySelector('.title-button').textContent.toLowerCase();
+                if (title.includes(keyword)) {
+                    link.style.display = 'block';
+                } else {
+                    link.style.display = 'none';
+                }
+            });
+        }
+
+        document.getElementById('keywordInput').addEventListener('input', filterLinksByKeyword);
     </script>
 </body>
 </html>
