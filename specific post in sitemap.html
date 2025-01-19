@@ -2,35 +2,37 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Posts with Label "PDF"</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4; /* Light gray background for contrast */
+            font-family: 'Open Sans', sans-serif;
+            background-color: #f0f2f5; /* Lighter, softer background */
             margin: 0;
             padding: 20px;
         }
         .container {
-            max-width: 800px;
+            max-width: 900px;
             margin: auto;
-            padding: 20px;
-            background-color: #fff;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Enhanced shadow for depth */
-            border-radius: 8px;
+            padding: 25px;
+            background-color: #ffffff; /* White container background */
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); /* Deeper shadow for layered effect */
+            border-radius: 15px; /* Consistent rounded corners */
         }
         h1 {
             text-align: center;
             color: #333;
-            margin-bottom: 20px;
+            font-size: 2em; /* Larger, more impactful text */
+            margin-bottom: 30px; /* Adjusted spacing */
         }
         #search-box {
             width: 100%;
-            padding: 10px;
-            margin-bottom: 20px;
-            font-size: 16px;
+            padding: 15px;
+            margin-bottom: 30px; /* Consistent spacing */
+            font-size: 18px;
             border: 1px solid #ddd;
-            border-radius: 5px;
-            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1); /* Inner shadow for input field */
+            border-radius: 8px; /* More rounded corners */
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1); /* Slightly deeper inner shadow */
         }
         ul#label_with_thumbs {
             text-align: left;
@@ -45,25 +47,26 @@
             width: 48%;
             margin: 1%;
             list-style: none;
-            padding: 10px;
+            padding: 15px;
             box-sizing: border-box;
         }
         #label_with_thumbs a {
-            text-decoration: none;
-            color: white;
-            background-color: #007BFF;
-            padding: 15px 20px;
-            border-radius: 5px;
+            text-decoration: none; 
+            color: #fff; 
+            background-color: #1E88E5; /* Nicer, modern blue color */
+            padding: 18px;
+            border-radius: 10px; /* More rounded corners */
             display: block;
             text-align: center;
-            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1); /* Shadow for buttons */
-            transition: background-color 0.3s ease; /* Smooth transition */
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Softer, more subtle button shadow */
+            transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth hover effect */
         }
         #label_with_thumbs a:hover {
-            background-color: #0056b3;
+            background-color: #1565C0; /* Deeper hover effect color */
+            transform: translateY(-2px); /* Slight lift on hover */
         }
         .error {
-            color: red;
+            color: #D32F2F; /* Better color for errors */
             text-align: center;
         }
 
@@ -71,7 +74,16 @@
         @media (max-width: 600px) {
             ul#label_with_thumbs li {
                 width: 100%;
-                margin: 0 0 10px 0;
+                margin: 5px 0;
+            }
+        }
+
+        @media (max-width: 900px) {
+            .container {
+                padding: 20px 15px;
+            }
+            #search-box {
+                padding: 12px;
             }
         }
     </style>
@@ -84,26 +96,31 @@
     </div>
 
     <script type='text/javascript'>
+        var numposts = 50; // Increased number of posts to display to the maximum
+
         function labelthumbs(json) {
             var ul = document.createElement('ul');
             ul.id = 'label_with_thumbs';
-            for (var i = 0; i < numposts; i++) {
-                var entry = json.feed.entry[i];
-                var posttitle = entry.title.$t;
-                var posturl;
-                if (i == json.feed.entry.length) break;
+            document.getElementById('sitemap').appendChild(ul);
+            var entries = json.feed.entry || [];
+            entries = entries.slice(0, numposts); // Limit to numposts
+
+            entries.forEach(function(entry) {
+                var posttitle = (entry.title && entry.title.$t) || 'Untitled';
+                var posturl = '';
+
                 for (var k = 0; k < entry.link.length; k++) {
                     if (entry.link[k].rel == 'alternate') {
                         posturl = entry.link[k].href;
                         break;
                     }
                 }
+
                 var li = document.createElement('li');
                 li.className = 'clearfix';
                 li.innerHTML = '<a href="' + posturl + '" target="_blank">' + posttitle + '</a>';
                 ul.appendChild(li);
-            }
-            document.getElementById('sitemap').appendChild(ul);
+            });
         }
 
         function filterPosts() {
@@ -123,9 +140,7 @@
             }
         }
     </script>
-    <script type='text/javascript'>
-        var numposts = 10; // Increase the number of posts to display
-    </script>
-    <script type="text/javascript" src="https://toolkit.laxmannepal.com.np/feeds/posts/default/-/PDF?published&alt=json-in-script&callback=labelthumbs"></script>
+    <script type="text/javascript" src="https://scripts.laxmannepal.com.np/feeds/posts/default/-/PDF?published&alt=json-in-script&callback=labelthumbs"></script>
+    <script type="text/javascript" src="https://www.laxmannepal.com.np/feeds/posts/default/-/PDF?published&alt=json-in-script&callback=labelthumbs"></script>
 </body>
 </html>
