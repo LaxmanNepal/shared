@@ -1,0 +1,254 @@
+
+  <style>
+body, nav ul {
+  padding: 0;
+  margin: 0;
+}
+
+header, main {
+  padding: 1rem;
+}
+
+button, header {
+  background-color: #4caf50;
+}
+
+button, main, nav {
+  text-align: center;
+}
+
+button, nav a {
+  color: #fff;
+  text-decoration: none;
+}
+
+#downloadLink button, button {
+  margin-top: 10px;
+}
+
+.rating, button, nav li {
+  display: inline-block;
+}
+
+body {
+  font-family: Poppins;
+  background-color: #ffffff;
+}
+
+nav ul {
+  list-style-type: none;
+}
+
+nav li {
+  margin: 0 10px;
+}
+
+main {
+  margin: 2rem auto;
+  max-width: 100%;
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, .1);
+  border-radius: 8px;
+}
+
+input[type="file"] {
+  display: none;
+}
+
+label.custom-file-upload {
+  border: 1px solid #4caf50;
+  display: inline-block;
+  padding: 10px 20px;
+  cursor: pointer;
+  color: #fff;
+  background-color: #4caf50;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+label.custom-file-upload:hover {
+  background-color: #45a049;
+}
+
+button {
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+#resultContainer {
+  margin-top: 20px;
+}
+
+#resultContainer img {
+  max-width: 100%;
+}
+
+h1 {
+  color: #4caf50;
+  font-size: 24px;
+}
+
+.row::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+[class*=col-] {
+  float: left;
+  padding: 15px;
+  width: 100%;
+}
+
+@media only screen and (min-width: 768px) {
+  .col-1 {width: 8.33%;}
+  .col-2 {width: 16.66%;}
+  .col-3 {width: 25%;}
+  .col-4 {width: 33.33%;}
+  .col-5 {width: 41.66%;}
+  .col-6 {width: 50%;}
+  .col-7 {width: 58.33%;}
+  .col-8 {width: 66.66%;}
+  .col-9 {width: 75%;}
+  .col-10 {width: 83.33%;}
+  .col-11 {width: 91.66%;}
+  .col-12 {width: 100%;}
+}
+
+@media only screen and (min-width: 600px) {
+  .col-t-1 {width: 8.33%;}
+  .col-t-2 {width: 16.66%;}
+  .col-t-3 {width: 25%;}
+  .col-t-4 {width: 33.33%;}
+  .col-t-5 {width: 41.66%;}
+  .col-t-6 {width: 50%;}
+  .col-t-7 {width: 58.33%;}
+  .col-t-8 {width: 66.66%;}
+  .col-t-9 {width: 75%;}
+  .col-t-10 {width: 83.33%;}
+  .col-t-11 {width: 91.66%;}
+  .col-t-12 {width: 100%;}
+}
+
+.rating input {
+  display: none;
+}
+
+.rating label {
+  float: right;
+  cursor: pointer;
+  color: #ccc;
+  transition: color .3s;
+}
+
+.rating label:before {
+  content: '\2605';
+  font-size: 30px;
+}
+
+.rating input:checked~label, .rating label:hover, .rating label:hover~label {
+  color: #6f00ff;
+  transition: color .3s;
+}
+
+
+ </style>
+
+
+  <main>
+    <h1>COMPRESS IMAGE TO 100KB</h1>
+    <p>100% Secure And Simple. Reduce image size to 100kb with our online image compressor to 100kb.</p>
+   
+   
+   <label class="custom-file-upload">
+<input type="file" id="imageInput">
+  Choose File
+</label>
+
+    <button onclick="compressImage()">Get Result</button>
+    <a id="downloadLink" style="display:none" download="resize_image.jpg"><button>Download</button></a>
+    <div id="resultContainer"></div>
+    <div class="rating">
+  <input value="5" name="rating" id="star5" type="radio">
+  <label for="star5"></label>
+  <input value="4" name="rating" id="star4" type="radio">
+  <label for="star4"></label>
+  <input value="3" name="rating" id="star3" type="radio">
+  <label for="star3"></label>
+  <input value="2" name="rating" id="star2" type="radio">
+  <label for="star2"></label>
+  <input value="1" name="rating" id="star1" type="radio">
+  <label for="star1"></label>
+</div>
+<style> .container{ 
+background-color: none; } p{ text-align: center; } </style> <body onload="load()"> <p> <div class="d-flex justify-content-center fs-1 fw-bold ">Animation Counter</div> </p> <p> <div class="container"> <div class="row"> <div class="col-sm"> <p id='0101' class="fs-2 text-light">0</p> <p class="text-light">Site visits Yesterday</p> </div> <div class="col-sm"> <p id='0102' class="fs-2 text-light">876</p> <p class="text-light">Site Visit Today
+</p> </div> <div class="col-sm"> <p class="fs-2 text-light"><span id='0103'>12</span>%</p> <p class="text-light align-content-center">Average complain rate</p> </div> </div> </div> </p>
+</center>
+<p>&nbsp;<b style="font-family: Poppins; text-align: center;">Try convert the JPG into different sizes&nbsp;</b></p><p><span style="font-family: Poppins; text-align: center;">&nbsp;• reduce jpg size to 100kb</span></p><p><span style="font-family: Poppins; text-align: center;">&nbsp;• reduce image size to 50kb</span></p><p><span style="font-family: Poppins; text-align: center;">&nbsp;• reduce photo size to 40kb</span></p><p><span style="font-family: Poppins; text-align: center;">&nbsp;• resize jpg size to 100kb</span></p><p><span style="font-family: Poppins; text-align: center;"><br /></span></p><p style="text-align: left;"><span style="text-align: center;"><b><h2>Optimize Your Website's Performance with reduce jpg size to 100kb</h2></b></span></p><p style="text-align: left;"><span style="text-align: center;">Many SEO Experts and Website Developer have to optimize the pages of their website and in the same optimization work Developer or SEO expert images also have to be optimized convert photo to 100Kbyte Tool is for those people this tool is the best tool optimize images For this tool can also be used for other work like - Save Storage.</span></p><p style="text-align: left;"></p><div class="separator" style="clear: both; text-align: center;"><a href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg5mQxZkVOY7N-mwyeiUUs4hlc1RXJtd839mWvHSWSOi-hzXkYYWZUpO9pUzKQguZFFExzY_pbzIkSodSpoS8NuWLXge32hjSP2XLFWfBr0p4tzWGDMSqLHnM9cNwHJL9192jLlMvHrfOG_zoffHoirLMUoZjvZEFOZj6G87jqBb2GqaWnWYDYTlKa_pBMG/s1280/compress%20Image%20to%20100kb.jpg" style="margin-left: 1em; margin-right: 1em;"><img alt="Compress photo to 100kb" border="0" data-original-height="759" data-original-width="1280" height="119" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg5mQxZkVOY7N-mwyeiUUs4hlc1RXJtd839mWvHSWSOi-hzXkYYWZUpO9pUzKQguZFFExzY_pbzIkSodSpoS8NuWLXge32hjSP2XLFWfBr0p4tzWGDMSqLHnM9cNwHJL9192jLlMvHrfOG_zoffHoirLMUoZjvZEFOZj6G87jqBb2GqaWnWYDYTlKa_pBMG/w200-h119/compress%20Image%20to%20100kb.jpg" title="Compress photo to 100kb" width="200" /></a></div><div class="separator" style="clear: both; text-align: center;"><br /></div><br /><span style="text-align: center;"><b><h3>Solve Your Problem with This resize Photo to 100kb Tool</h3></b></span><p></p><p style="text-align: left;"><span style="text-align: center;">Converting large JPG size to small Picture size solves the following problems.</span></p><p style="text-align: left;"><span style="text-align: center;"><br /></span></p><p style="text-align: left;"><span style="text-align: center;"><b><i>•&nbsp;</i>Slow Loading Time -</b></span></p><p style="text-align: left;"></p><div class="separator" style="clear: both; text-align: center;"><a href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiomYBym69fDXNWy6K2nHALezd--k59zQ237igBrvzts8fEBx703sd1EBhtauqnhowcKQLc5usO6RtyeltNgrpNzB76TNwlf8iVXsZqRS06PkNdwL26h22fLmT6gUV5kQAuH1uhH-G0QAajP1gsMH7fmML49NqQRZH6BESWl_c08kDNdJUyE_uyXGcxTv6Z/s150/compress%20Image%20to%20100kb.gif" style="margin-left: 1em; margin-right: 1em;"><img alt="Compress photo to 100kb" border="0" data-original-height="150" data-original-width="150" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiomYBym69fDXNWy6K2nHALezd--k59zQ237igBrvzts8fEBx703sd1EBhtauqnhowcKQLc5usO6RtyeltNgrpNzB76TNwlf8iVXsZqRS06PkNdwL26h22fLmT6gUV5kQAuH1uhH-G0QAajP1gsMH7fmML49NqQRZH6BESWl_c08kDNdJUyE_uyXGcxTv6Z/s16000/compress%20Image%20to%20100kb.gif" title="Compress photo to 100kb" /></a></div><br /><span style="text-align: center;"><br /></span><p></p><p style="text-align: left;"><span style="text-align: center;">If you use large size images on your site, then it directly increases your Speed, so you should use low size images.</span></p><p style="text-align: left;"><span style="text-align: center;"><b>&nbsp;• Excessive Bandwidth Usage</b></span></p><p style="text-align: left;"><span style="text-align: center;">Large images take more bandwidth, which also increases the cost of your hosting, user and publisher have more internet usage.</span></p><p style="text-align: left;"><span style="text-align: center;"><br /></span></p><p style="text-align: left;"><span style="text-align: center;"><b>• Impact On User Experience </b>-</span></p><p style="text-align: left;"><span style="text-align: center;">User Experience gets spoiled with more Speed and internet consuming site i.e. negative impact on user experience.</span></p><p style="text-align: left;"><span style="text-align: center;"><br /></span></p><p style="text-align: left;"><span style="text-align: center;"><b>• SEO Ranking</b></span></p><p style="text-align: left;"><span style="text-align: center;">Google does not rank the site due to low speed time and most of the users also back the high loading site in 3 sec which gives negative impact on your SEO.</span></p><p style="text-align: left;"><span style="text-align: center;"><b><h4>Advantages of photo size reduce</h4></b></span></p><p style="text-align: left;"><span style="text-align: center;"><br /></span></p><p style="text-align: left;"><span style="text-align: center;"><b>• Speed Up Your Site</b>&nbsp;</span></p><p style="text-align: left;"><span style="text-align: center;">Using a low size Photo reduces the loading speed of your site, which is positive impact for your site.</span></p><p style="text-align: left;"><span style="text-align: center;"><br /></span></p><p style="text-align: left;"><span style="text-align: center;"><b>• Improve User Experience</b></span></p><p style="text-align: left;"><span style="text-align: center;">By using low Photo size, the speed up and internet of your website leads to less use, which increases user experience</span></p><p style="text-align: left;"><span style="text-align: center;"><br /></span></p><p style="text-align: left;"><span style="text-align: center;"><b>• improve SEO Ranking</b></span></p><p style="text-align: left;"><span style="text-align: center;"><br /></span></p><p style="text-align: left;"><span style="text-align: center;"></span></p><div class="separator" style="clear: both; text-align: center;"><span style="text-align: center;"><a href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgrz-p7-sECcwPgFwaaYhiQTx99EH3oeEq5706lQSdBTAt_PfUcliPWfavP8TR41tXirMR7iIvzx8oU1T7OpuPRhNHij_hxk5Szhr5lgazHjUxv1SftyfgqN6KSgNc4_dx11tzXeIgi7hPqEG-N0T8CzuVS5Oizbyc9NOAG3BmIr3s6y7H67u2USy6lc_XN/s800/compress%20image%20to%20100kb%20(1).jpg" style="margin-left: 1em; margin-right: 1em;"><img alt="Compress photo to 100kb" border="0" data-original-height="762" data-original-width="800" height="191" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgrz-p7-sECcwPgFwaaYhiQTx99EH3oeEq5706lQSdBTAt_PfUcliPWfavP8TR41tXirMR7iIvzx8oU1T7OpuPRhNHij_hxk5Szhr5lgazHjUxv1SftyfgqN6KSgNc4_dx11tzXeIgi7hPqEG-N0T8CzuVS5Oizbyc9NOAG3BmIr3s6y7H67u2USy6lc_XN/w200-h191/compress%20image%20to%20100kb%20(1).jpg" title="Compress photo to 100kb" width="200" /></a></span></div><span style="text-align: center;"><br />Low JPG size reduces Speed Up, gives such sites to Google Higher Rank, ie Low Image Use brings enhance in SEO.</span><p></p><p style="text-align: left;"><span style="text-align: center;">There are many other benefits like-</span></p><p style="text-align: left;"><span style="text-align: center;"><b>• Future Proof Your Site</b></span></p><p style="text-align: left;"><span style="text-align: center;"><b>• Low Hosting Cost</b></span></p><p style="text-align: left;"><span style="text-align: center;"><b><h5>how to use reduce photo size to 100kb?</h5></b></span></p><p style="text-align: left;"><span style="text-align: center;">You have to follow this simple step:</span></p><p style="text-align: left;"><span style="text-align: center;"><b><br /></b></span></p><p style="text-align: left;"><span style="text-align: center;"><b>• Choose And Upload Your Image</b></span></p><p style="text-align: left;"></p><div class="separator" style="clear: both; text-align: center;"><a href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi1snnLZvuIqdJTnB9MeKm2NDO5XXI0adNcKdfCw36me5uZIaDkK-7Jq4tNNvvNNUzzNuJhOw-cF_hADNEHagGwEWxtR3U8TH2LRqpi8mqUdvmDI46nzERrTsrRJ0JgYIl6TU1Se3KMFKC_zKRCqsCxEC47Jrmg2Okg8YoUhmyqAHDdRz5gS4BL_GGxvTXd/s1280/compress%20Image%20to%20100.jpg" style="margin-left: 1em; margin-right: 1em;"><img alt="Compress Image to 100kb" border="0" data-original-height="1280" data-original-width="1168" height="200" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi1snnLZvuIqdJTnB9MeKm2NDO5XXI0adNcKdfCw36me5uZIaDkK-7Jq4tNNvvNNUzzNuJhOw-cF_hADNEHagGwEWxtR3U8TH2LRqpi8mqUdvmDI46nzERrTsrRJ0JgYIl6TU1Se3KMFKC_zKRCqsCxEC47Jrmg2Okg8YoUhmyqAHDdRz5gS4BL_GGxvTXd/w183-h200/compress%20Image%20to%20100.jpg" title="Compress Image to 100kb" width="183" /></a></div><br /><span style="text-align: center;"><br /></span><p></p><p style="text-align: left;"><span style="text-align: center;">Select the Photo you want to resize photo to 100Kbyte from your device by clicking on <i>`choose file`</i> button.</span></p><p style="text-align: left;"><span style="text-align: center;"><b>• Click On Get Result</b></span></p><p style="text-align: left;"><span style="text-align: center;"></span></p><div class="separator" style="clear: both; text-align: center;"><span style="text-align: center;"><a href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgnVoHv8rWRrAJFJZi50TbN7E48eE31kbFNQCgzyWfOZu7b93ueUl1GTrmf36kWVIulR9RFoPSFs6aUyPE7DXnP6Bdon6fe5JkBJOQYGTbODfNnk6Zl9dSC54lkElEYFnPZRi5wS56loU3WMGbpvm_uikc1aHSr0ZsgX156eH5Siv3hNgB0e-GPGT9pSz7J/s1280/compress%20jpg%20to%20100kb.jpg" style="margin-left: 1em; margin-right: 1em;"><img alt="Compress Image to 100kb" border="0" data-original-height="1280" data-original-width="1159" height="200" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgnVoHv8rWRrAJFJZi50TbN7E48eE31kbFNQCgzyWfOZu7b93ueUl1GTrmf36kWVIulR9RFoPSFs6aUyPE7DXnP6Bdon6fe5JkBJOQYGTbODfNnk6Zl9dSC54lkElEYFnPZRi5wS56loU3WMGbpvm_uikc1aHSr0ZsgX156eH5Siv3hNgB0e-GPGT9pSz7J/w181-h200/compress%20jpg%20to%20100kb.jpg" title="Compress Image to 100kb" width="181" /></a></span></div><span style="text-align: center;"><br /></span><p style="text-align: left;"><span style="text-align: center;">As soon as you upload your image, your file name is also shown on the website, click on <i>`Get Result`</i> to compress your image.</span></p><p style="text-align: left;"><span style="text-align: center;"><b>• Download Your ReduceImage</b></span></p><p style="text-align: left;"><span style="text-align: center;"></span></p><div class="separator" style="clear: both; text-align: center;"><span style="text-align: center;"><a href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgoohHBAxTQAvXdX6qRE_JOBOGhd7wdsY5vIl4xk4tQPniMqCEKPmfrSMD_P32qIPLjOQvGRq2tVLd_AvbYsbKQnH-GJvx4cw6EkBFKFD8oPjC9WMjBBNPgxO5hI2RFLpNlwMTiRMDIjXdJ4FY9QnSUAsbvXmT2gkGmmuRo3VUoSG1sPjaPViD9nyZB1HHD/s1280/20230818_144827.jpg" style="margin-left: 1em; margin-right: 1em;"><img alt="Compress Image to 100kb" border="0" data-original-height="1280" data-original-width="790" height="200" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgoohHBAxTQAvXdX6qRE_JOBOGhd7wdsY5vIl4xk4tQPniMqCEKPmfrSMD_P32qIPLjOQvGRq2tVLd_AvbYsbKQnH-GJvx4cw6EkBFKFD8oPjC9WMjBBNPgxO5hI2RFLpNlwMTiRMDIjXdJ4FY9QnSUAsbvXmT2gkGmmuRo3VUoSG1sPjaPViD9nyZB1HHD/w124-h200/20230818_144827.jpg" title="Compress Image to 100kb" width="124" /></a></span></div><span style="text-align: center;">After this you will be shown your converted image, click on <u><i>`Download`</i></u> button to download the Picture in your device, your reduce size Picture will be downloaded in your device.</span><p></p><div><span style="text-align: center;"><b>Future Updates on Our Tool</b></span></div><div><span style="text-align: center;">In future, we will try that you can use the tool as soon as possible, so that your time will be saved and we will keep bringing your better designs from time to time, and we are constantly trying to compress the Photo with minimum quality loss.</span></div><div><span style="text-align: center;"><br /></span></div><div><span style="text-align: center;"><b>User Feedback For</b> <b>Our Tool</b></span></div><div><span style="text-align: center;">If you want to give us any feedback so that we can improve our tool, then you can contact us by visiting our contact page.</span></div><div><span style="text-align: center;"><br /></span></div><div><span style="text-align: center;"><b>FAQ Section -</b></span></div><div><span style="text-align: center;"><br /></span></div><div><span style="text-align: center;"><b>how to make photo less than 100kb</b></span></div><div><span style="text-align: center;"><b>Resize100kb?</b></span></div><div><span style="text-align: center;">With this tool, you can change the size of any JPG to 100Kbyte, that too absolutely free without losing quality.</span></div><div><span style="text-align: center;"><br /></span></div><div><span style="text-align: center;"><b>Why JPG resize photo Important?</b></span></div><div><span style="text-align: center;">Often we need an image of less than 100Kbyte size, so this tool has been made for you, if you upload a photo of less than 100Kbyte size on your website, then the speed up of your website increases, which is part of SEO and many more. Need like - FAVICON, Store Many images ETC.</span></div><div><span style="text-align: center;"><b><br /></b></span></div><div><span style="text-align: center;"><b>JPG compress 100kb without losing quality?</b></span></div><div><span style="text-align: center;">Are you looking for a simple and secure tool that can reduce the size of your images without losing quality? So <b>Resize100kb</b> is the best tool for your work which can convert your image in just 1 click.</span></div><div><span style="text-align: center;"><br /></span></div><div><span style="text-align: center;"><b>How do I convert an image to 100 KB?</b></span></div><div><span style="text-align: center;">Yes! With the resize100Kbyte tool, you can reduce size any image in just 1 click without losing quality.</span></div><div><span style="text-align: center;"><br /></span></div>
+</center>
+
+  <script>
+function compressImage(){
+  let e = document.getElementById("imageInput");
+  if (!e.files || !e.files[0]) {
+    alert("Please select an image first.");
+    return;
+  }
+  let t = e.files[0],
+      n = new FileReader;
+  n.onload = function(e) {
+    let t = new Image;
+    t.onload = function() {
+      let e = document.createElement("canvas"),
+          n = e.getContext("2d"),
+          a = t.width,
+          i = t.height;
+      t.width > 800 && (a = 800, i = 800 * t.height / t.width);
+      i > 800 && (i = 800, a = 800 * t.width / t.height);
+      e.width = a;
+      e.height = i;
+      n.drawImage(t, 0, 0, a, i);
+      e.toBlob(function(e) {
+        let t = new File([e], "compressed_image.jpg"),
+            n = document.getElementById("downloadLink");
+        n.href = URL.createObjectURL(t);
+        n.style.display = "block";
+        let a = document.getElementById("resultContainer");
+        a.innerHTML = "";
+        let i = new Image;
+        i.src = URL.createObjectURL(t);
+        a.appendChild(i);
+        let sizeInfo = document.createElement("p");
+        sizeInfo.textContent = "Compressed Size: " + (e.size / 1024).toFixed(2) + " KB";
+        a.appendChild(sizeInfo);
+      }, "image/jpeg", .7);
+    };
+    t.src = e.target.result;
+  };
+  n.readAsDataURL(t);
+}
+
+function animate(e, t, n, a) {
+  let i = null;
+  Date.now();
+  let l = $ => {i || (i = $); let m = Math.min(($ - i) / a, 1);
+  e.innerHTML = Math.floor(m * (n - t) + t), m < 1 ? window.requestAnimationFrame(l) : window.cancelAnimationFrame(window.requestAnimationFrame(l))};
+  window.requestAnimationFrame(l);
+}
+
+let text1 = document.getElementById("0101"),
+    text2 = document.getElementById("0102"),
+    text3 = document.getElementById("0103");
+
+const load = () => {
+  animate(text1, 0, 907, 5000);
+  animate(text2, 0, 432, 5000);
+  animate(text3, 100, 12, 5000);
+};
+</script>
+
+</body>
+</html>
