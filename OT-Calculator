@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OT Calculation App</title>
+  <style>
+    /* General Styles */
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      color: #333;
+    }
+
+    .container {
+      background: #fff;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      width: 350px;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 24px;
+      margin-bottom: 20px;
+      color: #444;
+      font-weight: 600;
+    }
+
+    .input-group {
+      margin-bottom: 20px;
+      text-align: left;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 500;
+      color: #555;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      box-sizing: border-box;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-size: 14px;
+      transition: border-color 0.3s ease;
+    }
+
+    input:focus {
+      border-color: #007bff;
+      outline: none;
+    }
+
+    button {
+      background: #007bff;
+      color: #fff;
+      border: none;
+      padding: 12px 25px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: 500;
+      transition: background 0.3s ease;
+      margin: 5px;
+    }
+
+    button:hover {
+      background: #0056b3;
+    }
+
+    .steps {
+      margin-top: 20px;
+      text-align: left;
+    }
+
+    .step {
+      margin-bottom: 10px;
+      font-size: 14px;
+      color: #555;
+      padding: 10px;
+      background: #f9f9f9;
+      border-radius: 8px;
+      border: 1px solid #eee;
+    }
+
+    .result {
+      margin-top: 20px;
+      font-size: 18px;
+      font-weight: 600;
+      color: #007bff;
+      padding: 15px;
+      background: #f9f9f9;
+      border-radius: 8px;
+      border: 1px solid #eee;
+    }
+
+    .progress {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+
+    .progress-step {
+      flex: 1;
+      text-align: center;
+      padding: 10px;
+      background: #f1f1f1;
+      border-radius: 8px;
+      margin: 0 5px;
+      font-weight: 500;
+      color: #777;
+    }
+
+    .progress-step.active {
+      background: #007bff;
+      color: #fff;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .fade-in {
+      animation: fadeIn 0.5s ease-in-out;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Over Time Calculator</h1>
+    <!-- Progress Indicator -->
+    <div class="progress">
+      <div id="progress1" class="progress-step active">1</div>
+      <div id="progress2" class="progress-step">2</div>
+      <div id="progress3" class="progress-step">3</div>
+    </div>
+
+    <!-- Step 1: Basic Salary -->
+    <div id="step1" class="input-group">
+      <label for="basicSalary">Basic Salary (KD):</label>
+      <input type="number" id="basicSalary" placeholder="Enter basic salary">
+      <button id="next1">Next</button>
+    </div>
+
+    <!-- Step 2: Working Days -->
+    <div id="step2" class="input-group hidden">
+      <label for="workingDays">Working Days (Excluding Fridays/Holidays):</label>
+      <input type="number" id="workingDays" placeholder="Enter working days">
+      <button id="back1">Back</button>
+      <button id="next2">Next</button>
+    </div>
+
+    <!-- Step 3: Overtime Days -->
+    <div id="step3" class="input-group hidden">
+      <label for="overtimeDays">Overtime Days:</label>
+      <input type="number" id="overtimeDays" placeholder="Enter overtime days">
+      <button id="back2">Back</button>
+      <button id="calculateBtn">Calculate</button>
+    </div>
+
+    <!-- Steps and Result -->
+    <div id="steps" class="steps"></div>
+    <div id="result" class="result"></div>
+
+    <!-- Reset Button -->
+    <button id="resetBtn" class="hidden">Reset</button>
+  </div>
+
+  <script>
+    // Step 1: Basic Salary
+    document.getElementById('next1').addEventListener('click', function () {
+      const basicSalary = parseFloat(document.getElementById('basicSalary').value);
+
+      if (isNaN(basicSalary)) {
+        alert("Please enter a valid basic salary.");
+        return;
+      }
+
+      // Update progress
+      document.getElementById('progress1').classList.remove('active');
+      document.getElementById('progress2').classList.add('active');
+
+      // Hide Step 1 and show Step 2
+      document.getElementById('step1').classList.add('hidden');
+      document.getElementById('step2').classList.remove('hidden');
+    });
+
+    // Step 2: Working Days
+    document.getElementById('next2').addEventListener('click', function () {
+      const workingDays = parseFloat(document.getElementById('workingDays').value);
+
+      if (isNaN(workingDays)) {
+        alert("Please enter valid working days.");
+        return;
+      }
+
+      // Update progress
+      document.getElementById('progress2').classList.remove('active');
+      document.getElementById('progress3').classList.add('active');
+
+      // Hide Step 2 and show Step 3
+      document.getElementById('step2').classList.add('hidden');
+      document.getElementById('step3').classList.remove('hidden');
+    });
+
+    // Step 3: Overtime Days and Calculation
+    document.getElementById('calculateBtn').addEventListener('click', function () {
+      const basicSalary = parseFloat(document.getElementById('basicSalary').value);
+      const workingDays = parseFloat(document.getElementById('workingDays').value);
+      const overtimeDays = parseFloat(document.getElementById('overtimeDays').value);
+
+      if (isNaN(overtimeDays)) {
+        alert("Please enter valid overtime days.");
+        return;
+      }
+
+      // Clear previous steps and result
+      const stepsElement = document.getElementById('steps');
+      const resultElement = document.getElementById('result');
+      stepsElement.innerHTML = "";
+      resultElement.textContent = "";
+
+      // Display steps
+      stepsElement.innerHTML += `<div class="step fade-in">1. Basic Salary: ${basicSalary} KD</div>`;
+      stepsElement.innerHTML += `<div class="step fade-in">2. Working Days: ${workingDays} days</div>`;
+      stepsElement.innerHTML += `<div class="step fade-in">3. Overtime Days: ${overtimeDays} days</div>`;
+
+      // Perform calculation
+      const dailyRate = basicSalary / workingDays;
+      const overtimeAmount = (dailyRate * 2) * overtimeDays;
+
+      // Display calculation steps
+      stepsElement.innerHTML += `<div class="step fade-in">4. Daily Rate: ${dailyRate.toFixed(3)} KD/day</div>`;
+      stepsElement.innerHTML += `<div class="step fade-in">5. Overtime Rate: ${(dailyRate * 2).toFixed(3)} KD/day</div>`;
+      stepsElement.innerHTML += `<div class="step fade-in">6. Total Overtime Amount: ${overtimeAmount.toFixed(3)} KD</div>`;
+
+      // Display result
+      resultElement.textContent = `OT Amount: ${overtimeAmount.toFixed(3)} KD`;
+      resultElement.classList.add('fade-in');
+
+      // Show Reset Button
+      document.getElementById('resetBtn').classList.remove('hidden');
+    });
+
+    // Back Button for Step 2
+    document.getElementById('back1').addEventListener('click', function () {
+      document.getElementById('progress2').classList.remove('active');
+      document.getElementById('progress1').classList.add('active');
+      document.getElementById('step2').classList.add('hidden');
+      document.getElementById('step1').classList.remove('hidden');
+    });
+
+    // Back Button for Step 3
+    document.getElementById('back2').addEventListener('click', function () {
+      document.getElementById('progress3').classList.remove('active');
+      document.getElementById('progress2').classList.add('active');
+      document.getElementById('step3').classList.add('hidden');
+      document.getElementById('step2').classList.remove('hidden');
+    });
+
+    // Reset Button
+    document.getElementById('resetBtn').addEventListener('click', function () {
+      // Clear inputs
+      document.getElementById('basicSalary').value = "";
+      document.getElementById('workingDays').value = "";
+      document.getElementById('overtimeDays').value = "";
+
+      // Reset progress
+      document.getElementById('progress1').classList.add('active');
+      document.getElementById('progress2').classList.remove('active');
+      document.getElementById('progress3').classList.remove('active');
+
+      // Hide all steps except Step 1
+      document.getElementById('step1').classList.remove('hidden');
+      document.getElementById('step2').classList.add('hidden');
+      document.getElementById('step3').classList.add('hidden');
+
+      // Clear steps and result
+      document.getElementById('steps').innerHTML = "";
+      document.getElementById('result').textContent = "";
+
+      // Hide Reset Button
+      document.getElementById('resetBtn').classList.add('hidden');
+    });
+  </script>
+</body>
+</html>
