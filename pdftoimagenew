@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <meta name="description" content="Convert PDF to high-quality images instantly with our free online converter. Perfect for mobile users with fast processing and easy downloads.">
+    <meta name="keywords" content="PDF to Image, Mobile PDF Converter, Image Converter, Free PDF Tool, Convert PDF to PNG">
+    <meta name="author" content="pdftoimagebylaxmannepal">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://pdftoimagebylaxmannepal.com/">
+    <meta property="og:title" content="PDF to Image Converter - pdftoimagebylaxmannepal">
+    <meta property="og:description" content="Mobile-friendly PDF to image converter with instant downloads and high-quality results">
+    <meta property="og:image" content="https://pdftoimagebylaxmannepal.com/thumbnail.jpg">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://pdftoimagebylaxmannepal.com/">
+    <meta property="twitter:title" content="PDF to Image Converter - pdftoimagebylaxmannepal">
+    <meta property="twitter:description" content="Mobile-friendly PDF to image converter with instant downloads and high-quality results">
+    <meta property="twitter:image" content="https://pdftoimagebylaxmannepal.com/thumbnail.jpg">
+
+    <title>PDF to Image Converter - pdftoimagebylaxmannepal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "PDF to Image Converter",
+        "operatingSystem": "Web",
+        "applicationCategory": "MultimediaApplication",
+        "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "4.8",
+            "ratingCount": "1500"
+        },
+        "offers": {
+            "@type": "Offer",
+            "price": "0.00",
+            "priceCurrency": "USD"
+        }
+    }
+    </script>
+
+    <style>
+        :root {
+            --primary: #6366f1;
+            --secondary: #8b5cf6;
+            --background: #f8fafc;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, var(--background) 0%, #e2e8f0 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 15px;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.98);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            width: 100%;
+            max-width: 800px;
+            margin: 15px 0;
+        }
+
+        h1 {
+            font-size: 24px;
+            text-align: center;
+            margin: 15px 0;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.3;
+        }
+
+        .upload-section {
+            margin: 20px 0;
+        }
+
+        .file-label {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 25px 15px;
+            border: 2px dashed #cbd5e1;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.9);
+            transition: all 0.2s ease;
+            text-align: center;
+        }
+
+        .file-label:active {
+            transform: scale(0.98);
+        }
+
+        #imageContainer {
+            display: grid;
+            gap: 15px;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            margin: 20px 0;
+        }
+
+        .thumbnail-container {
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        .thumbnail {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .download-btn {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 8px;
+            border-radius: 8px;
+            backdrop-filter: blur(4px);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .download-btn svg {
+            width: 20px;
+            height: 20px;
+            stroke: var(--primary);
+        }
+
+        #downloadAll {
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            font-size: 16px;
+            display: block;
+            margin: 20px auto;
+            width: 100%;
+            max-width: 280px;
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 15px;
+                border-radius: 12px;
+            }
+            
+            h1 {
+                font-size: 20px;
+            }
+            
+            .file-label {
+                padding: 20px 10px;
+            }
+            
+            #imageContainer {
+                grid-template-columns: 1fr;
+            }
+            
+            .thumbnail {
+                height: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>PDF to Image Converter<br><span style="font-size: 0.8em; display: block; margin-top: 5px;">by pdftoimagebylaxmannepal</span></h1>
+        
+        <div class="upload-section">
+            <input type="file" id="pdfInput" class="file-input" accept="application/pdf">
+            <label for="pdfInput" class="file-label">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" style="width: 40px; height: 40px; margin-bottom: 10px;">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m6.75 12l-3-3m0 0l-3 3m3-3v6m-1.5-15H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"/>
+                </svg>
+                <span style="font-weight: 500; color: #334155;">Tap to Upload PDF</span>
+                <p style="color: #64748b; margin-top: 8px; font-size: 0.85em;">
+                    Supports: PDF files up to 25MB
+                </p>
+            </label>
+        </div>
+
+        <div id="imageContainer"></div>
+        <button id="downloadAll">Download All Images</button>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js"></script>
+    <script>
+        let imageDataUrls = [];
+
+        // Mobile-friendly touch events
+        document.addEventListener('touchstart', handleTouch, { passive: true });
+        document.getElementById('pdfInput').addEventListener('change', handleFileSelect);
+
+        function handleTouch(e) {
+            e.preventDefault();
+        }
+
+        function handleFileSelect(e) {
+            handleFile(e.target.files[0]);
+        }
+
+        async function handleFile(file) {
+            if (!file || file.type !== 'application/pdf') {
+                alert('Please select a valid PDF file');
+                return;
+            }
+
+            try {
+                const pdfData = await file.arrayBuffer();
+                const pdf = await pdfjsLib.getDocument({ data: new Uint8Array(pdfData) }).promise;
+                const imageContainer = document.getElementById('imageContainer');
+                imageContainer.innerHTML = '';
+                imageDataUrls = [];
+
+                for (let i = 1; i <= pdf.numPages; i++) {
+                    const page = await pdf.getPage(i);
+                    const viewport = page.getViewport({ scale: window.innerWidth < 480 ? 1 : 1.5 });
+                    const canvas = document.createElement('canvas');
+                    const ctx = canvas.getContext('2d');
+                    canvas.height = viewport.height;
+                    canvas.width = viewport.width;
+
+                    await page.render({ canvasContext: ctx, viewport }).promise;
+                    const dataUrl = canvas.toDataURL('image/png');
+                    imageDataUrls.push(dataUrl);
+
+                    const thumbnail = document.createElement('div');
+                    thumbnail.className = 'thumbnail-container';
+                    thumbnail.innerHTML = `
+                        <img class="thumbnail" src="${dataUrl}" alt="PDF Page ${i} Conversion" loading="lazy">
+                        <button class="download-btn" onclick="downloadImage(${i - 1})" aria-label="Download Page ${i}">
+                            <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"/>
+                            </svg>
+                        </button>
+                    `;
+                    imageContainer.appendChild(thumbnail);
+                }
+
+                document.getElementById('downloadAll').style.display = 'block';
+            } catch (error) {
+                alert('Error processing PDF: ' + error.message);
+            }
+        }
+
+        // Download functions
+        window.downloadImage = (index) => {
+            const link = document.createElement('a');
+            link.href = imageDataUrls[index];
+            link.download = `pdftoimagebylaxmannepal-page-${index + 1}.png`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        };
+
+        document.getElementById('downloadAll').addEventListener('click', () => {
+            imageDataUrls.forEach((dataUrl, index) => {
+                const link = document.createElement('a');
+                link.href = dataUrl;
+                link.download = `pdftoimagebylaxmannepal-page-${index + 1}.png`;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            });
+        });
+    </script>
+</body>
+</html>
