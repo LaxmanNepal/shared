@@ -627,6 +627,19 @@
       }
     }
     
+    // Get current timestamp for filename
+    function getTimestamp() {
+      const now = new Date();
+      const year = now.getFullYear();
+      const month = String(now.getMonth() + 1).padStart(2, '0');
+      const day = String(now.getDate()).padStart(2, '0');
+      const hours = String(now.getHours()).padStart(2, '0');
+      const minutes = String(now.getMinutes()).padStart(2, '0');
+      const seconds = String(now.getSeconds()).padStart(2, '0');
+      
+      return `HamroTechnicalKnowledge_${year}${month}${day}_${hours}${minutes}${seconds}`;
+    }
+
     // Convert PDF to images
     async function convertToImages() {
       if (!currentFile) {
@@ -688,7 +701,7 @@
           await downloadAsZip(images, format);
           showStatus(`Downloaded ${images.length} pages as ZIP`, 'success');
         } else {
-          downloadImage(images[0].url, `page_${images[0].pageNum}.${format}`);
+          downloadImage(images[0].url, images[0].pageNum, format);
           showStatus('Downloaded image successfully', 'success');
         }
         
@@ -702,7 +715,10 @@
     }
     
     // Download single image
-    function downloadImage(url, filename) {
+    function downloadImage(url, pageNum, format) {
+      const timestamp = getTimestamp();
+      const filename = `${timestamp}_page${pageNum}.${format}`;
+      
       const link = document.createElement('a');
       link.href = url;
       link.download = filename;
@@ -716,12 +732,13 @@
       try {
         showStatus('Creating ZIP archive...', 'info');
         const zip = new JSZip();
-        const folder = zip.folder('converted_pages');
+        const folder = zip.folder("converted_pages");
+        const timestamp = getTimestamp();
         
         for (const img of images) {
           const response = await fetch(img.url);
           const blob = await response.blob();
-          folder.file(`page_${img.pageNum}.${format}`, blob);
+          folder.file(`${timestamp}_page${img.pageNum}.${format}`, blob);
         }
         
         const content = await zip.generateAsync({ type: 'blob' }, (metadata) => {
@@ -730,13 +747,19 @@
         });
         
         const url = URL.createObjectURL(content);
-        downloadImage(url, 'converted_pages.zip');
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = `${timestamp}_converted_pages.zip`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        
       } catch (error) {
         console.error('ZIP creation failed:', error);
         showStatus('Falling back to individual downloads', 'warning');
         // Fallback to individual downloads
         for (const img of images) {
-          downloadImage(img.url, `page_${img.pageNum}.${format}`);
+          downloadImage(img.url, img.pageNum, format);
         }
       }
     }
